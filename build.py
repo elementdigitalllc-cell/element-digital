@@ -406,6 +406,7 @@ def header():
         <a class="top" href="contact.html">Contact {CHEV}</a>
         <div class="menu">
           <a href="contact.html">Send a message</a>
+          <a href="faq.html">FAQ</a>
           <a href="mailto:elementdigitalllc@gmail.com">Email us</a>
         </div>
       </div>
@@ -441,6 +442,7 @@ def footer():
         <h4>Company</h4>
         <ul>
           <li><a href="solutions.html">Solutions</a></li>
+          <li><a href="faq.html">FAQ</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="mailto:elementdigitalllc@gmail.com">elementdigitalllc@gmail.com</a></li>
         </ul>
@@ -669,7 +671,7 @@ index_body = f"""
     <div class="wrap">
       {ELEMENTS_HTML}
       <h1 class="reveal in">The elements your business is missing.</h1>
-      <p class="sub reveal in d1">A solutions company for businesses. If it's digital and it's costing you customers, we build the fix.</p>
+      <p class="sub reveal in d1">A solutions company for businesses. Whatever's costing you customers, we build the fix.</p>
       <div class="intro-actions reveal in d2">
         {cta()}
         <a class="plain-link" href="products.html">See our products</a>
@@ -897,7 +899,7 @@ pricing_body = f"""
       </div>
       <div class="plan p-else reveal in d2">
         <h2>Anything else</h2>
-        <p class="for">Have a different problem? If it's digital, bring it to us.</p>
+        <p class="for">Have a different problem? Bring it to us.</p>
         <ul>
           <li>A straight assessment of what's worth doing</li>
           <li>If we can solve it, we tell you how</li>
@@ -955,7 +957,7 @@ pricing_body = f"""
         </details>
         <details class="qa">
           <summary>Can you help with something that isn't a website or a chatbot? <span class="plus">+</span></summary>
-          <p class="a">Bring it to us. If it's digital and it's costing you customers, we'll tell you whether we can fix it. If we can't, we'll say so and point you to someone who can.</p>
+          <p class="a">Bring it to us. Tell us what's costing you customers and we'll tell you whether we can fix it. If we can't, we'll say so and point you to someone who can.</p>
         </details>
         <details class="qa">
           <summary>How do payments work? <span class="plus">+</span></summary>
@@ -1231,4 +1233,36 @@ page("accessibility.html",
      "Element Digital's accessibility commitment for elementdigital.org.",
      accessibility_body)
 
-print("done")
+
+# ------- faq -------
+faq_body = f"""
+  <section class="page-head">
+    <div class="wrap">
+      {label('FAQ', 'yellow')}
+      <h1 class="reveal in">Questions, answered straight.</h1>
+      <p class="lede reveal in d1">If yours isn't here, <a href="contact.html" style="color: var(--ink);">ask us directly</a>. You'll get a real answer either way.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="faq" style="border-top: none; margin-top: 24px; padding-top: 24px;">
+      <div class="faq-list" style="margin-top: 0;">
+        <details class="qa">
+          <summary>What does Element Digital actually do? <span class="plus">+</span></summary>
+          <p class="a">We build and run two products: Element Sites, websites built for you and maintained by us, and Element Assistant, an assistant on your site that answers customers and books appointments. We also take on other problems that cost businesses customers. You bring the problem, we quote the fix.</p>
+        </details>
+        <details class="qa">
+          <summary>Do you only work with certain industries? <span class="plus">+</span></summary>
+          <p class="a">No. Restaurants, salons, trades, offices, shops. If customers look you up, compare you, and ask questions before they buy, our work applies. See the <a href="solutions.html">solutions page</a> for examples.</p>
+        </details>
+        <details class="qa">
+          <summary>How do we get started? <span class="plus">+</span></summary>
+          <p class="a">Send a note through the <a href="contact.html">contact page</a> with a little about your business. We look at what you have, tell you what's worth doing, and give you a straight quote. You decide from there.</p>
+        </details>
+        <details class="qa">
+          <summary>How much does it cost? <span class="plus">+</span></summary>
+          <p class="a">Every job is quoted directly. We look at your business, agree on what's worth doing, and give you one number for the whole thing before any work starts.</p>
+        </details>
+        <details class="qa">
+          <summary>Why don't you list prices? <span class="plus">+</span></summary>
+          <p class="a">Because ev
