@@ -196,6 +196,10 @@ CSS = """
   .d-web .frame { width: min(300px, 94%); height: 220px; border: 1px solid var(--ink); background: #fff; display: flex; flex-direction: column; }
   .d-web .chrome { height: 26px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 5px; padding: 0 10px; flex: none; }
   .d-web .chrome i { width: 6px; height: 6px; background: #d4d2d8; display: block; }
+  .d-web .chrome-label {
+    font-family: "IBM Plex Mono", monospace; font-size: 0.5625rem;
+    letter-spacing: 0.08em; text-transform: uppercase; color: #9a969e; margin-left: 8px;
+  }
   .d-web .page { flex: 1; padding: 14px; position: relative; }
   .d-web .blk { position: absolute; transform-origin: left center; }
   .d-web .b-nav  { top: 14px; left: 14px; right: 14px; height: 10px; background: #eceaef; animation: blk 9s infinite; }
@@ -387,8 +391,8 @@ def header():
       <div>
         <a class="top" href="products.html">Products {CHEV}</a>
         <div class="menu">
-          <a href="products.html#sites">Element Sites</a>
           <a href="products.html#assistant">Element Assistant</a>
+          <a href="products.html#sites">Element Sites</a>
         </div>
       </div>
       <div>
@@ -402,14 +406,7 @@ def header():
         </div>
       </div>
       <div><a class="top" href="pricing.html">Pricing</a></div>
-      <div>
-        <a class="top" href="contact.html">Contact {CHEV}</a>
-        <div class="menu">
-          <a href="contact.html">Send a message</a>
-          <a href="faq.html">FAQ</a>
-          <a href="mailto:elementdigitalllc@gmail.com">Email us</a>
-        </div>
-      </div>
+      <div><a class="top" href="contact.html">Contact</a></div>
     </nav>
     <a class="brand" href="index.html" aria-label="Element Digital">
       <img src="{LOGO}" alt="Element Digital">
@@ -431,30 +428,29 @@ def footer():
         <p>Websites and chatbots for businesses. Built by us, looked after by us.</p>
       </div>
       <div class="foot-col">
-        <h4>Products</h4>
-        <ul>
-          <li><a href="products.html#sites">Element Sites</a></li>
-          <li><a href="products.html#assistant">Element Assistant</a></li>
-          <li><a href="pricing.html">Pricing</a></li>
-        </ul>
-      </div>
-      <div class="foot-col">
         <h4>Company</h4>
         <ul>
-          <li><a href="solutions.html">Solutions</a></li>
-          <li><a href="faq.html">FAQ</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="mailto:elementdigitalllc@gmail.com">elementdigitalllc@gmail.com</a></li>
+          <li><a href="solutions.html">Solutions</a></li>
         </ul>
       </div>
       <div class="foot-col">
         <h4>Legal</h4>
         <ul>
-          <li><a href="privacy.html">Privacy Policy</a></li>
-          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="accessibility.html">Accessibility</a></li>
           <li><a href="cookies.html">Cookie Policy</a></li>
           <li><a href="disclaimer.html">Disclaimer</a></li>
-          <li><a href="accessibility.html">Accessibility</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="products.html#assistant">Element Assistant</a></li>
+          <li><a href="products.html#sites">Element Sites</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
         </ul>
       </div>
     </div>
@@ -579,11 +575,11 @@ def label(text, color):
     return f'<div class="label-row"><span class="label-rule" style="background: var(--{color})"></span><span class="mono">{text}</span></div>'
 
 ELEMENTS_HTML = """<div class="elements" aria-label="What Element Digital builds">
-        <span class="el-wrap"><a class="el el-sites" href="products.html#sites">
-          <span class="sym">St</span><span class="nm">Sites</span>
-        </a></span>
         <span class="el-wrap"><a class="el el-assist" href="products.html#assistant">
           <span class="sym">As</span><span class="nm">Assistant</span>
+        </a></span>
+        <span class="el-wrap"><a class="el el-sites" href="products.html#sites">
+          <span class="sym">St</span><span class="nm">Sites</span>
         </a></span>
         <span class="el-wrap"><a class="el el-sol" href="solutions.html">
           <span class="sym">Sn</span><span class="nm">Solutions</span>
@@ -635,7 +631,7 @@ def demo_web(reveal="reveal d2"):
     return f"""<div class="demo d-web {reveal}" aria-hidden="true">
   <div class="stage">
     <div class="frame">
-      <div class="chrome"><i></i><i></i><i></i></div>
+      <div class="chrome"><i></i><i></i><i></i><span class="chrome-label">element sites</span></div>
       <div class="page">
         <div class="blk b-nav"></div><div class="blk b-h1"></div><div class="blk b-t1"></div>
         <div class="blk b-t2"></div><div class="blk b-cta"></div><div class="blk b-img"></div>
@@ -689,18 +685,18 @@ index_body = f"""
     <div class="wrap">
       <div class="cards">
         <div class="card reveal">
-          {label('Element Sites', 'blue')}
-          {demo_web(reveal="")}
-          <h3>A website that takes your business seriously.</h3>
-          <p>Fast, mobile first, and built around what your customers actually look for. Designed and built for you, then looked after long past launch.</p>
-          <a class="plain-link" href="products.html#sites">See the product</a>
-        </div>
-        <div class="card reveal d1">
           {label('Element Assistant', 'purple')}
           {demo_bot(reveal="")}
           <h3>Never miss another customer.</h3>
           <p>An assistant on your site that knows your hours, your services, and your availability. It answers questions, captures leads, and books appointments while you work.</p>
           <a class="plain-link" href="products.html#assistant">See the product</a>
+        </div>
+        <div class="card reveal d1">
+          {label('Element Sites', 'blue')}
+          {demo_web(reveal="")}
+          <h3>A website that takes your business seriously.</h3>
+          <p>Fast, mobile first, and built around what your customers actually look for. Designed and built for you, then looked after long past launch.</p>
+          <a class="plain-link" href="products.html#sites">See the product</a>
         </div>
       </div>
       <p class="aside-note cards-aside reveal">Looking for something else? <a href="contact.html">Ask us</a>. If we can solve it, we'll tell you how.</p>
@@ -750,22 +746,6 @@ products_body = f"""
   </section>
 
   <div class="wrap" style="margin-top: 56px;">
-    <section class="product" id="sites">
-      <div class="inner">
-        <div>
-          {label('Element Sites', 'blue')}
-          <h2 class="reveal">A website that takes your business seriously.</h2>
-          <p class="body reveal d1">Most business websites are slow, outdated, or missing entirely. Customers notice before they ever call. We design and build sites that look right on a phone, say what you do, and make it easy to book or get in touch.</p>
-          <ul>
-            <li class="reveal d1">Designed and built for you, start to finish</li>
-            <li class="reveal d2">Fast, mobile first, easy to find on Google</li>
-            <li class="reveal d3">Hosting, updates, and upkeep handled by us</li>
-          </ul>
-        </div>
-        {demo_web()}
-      </div>
-    </section>
-
     <section class="product" id="assistant">
       <div class="inner">
         <div>
@@ -779,6 +759,22 @@ products_body = f"""
           </ul>
         </div>
         {demo_bot()}
+      </div>
+    </section>
+
+    <section class="product" id="sites">
+      <div class="inner">
+        <div>
+          {label('Element Sites', 'blue')}
+          <h2 class="reveal">A website that takes your business seriously.</h2>
+          <p class="body reveal d1">Most business websites are slow, outdated, or missing entirely. Customers notice before they ever call. We design and build sites that look right on a phone, say what you do, and make it easy to book or get in touch.</p>
+          <ul>
+            <li class="reveal d1">Designed and built for you, start to finish</li>
+            <li class="reveal d2">Fast, mobile first, easy to find on Google</li>
+            <li class="reveal d3">Hosting, updates, and upkeep handled by us</li>
+          </ul>
+        </div>
+        {demo_web()}
       </div>
     </section>
   </div>
@@ -873,19 +869,7 @@ pricing_body = f"""
 
   <div class="wrap">
     <div class="plans">
-      <div class="plan p-sites reveal in">
-        <h2>Element Sites</h2>
-        <p class="for">For businesses whose website is outdated, slow, or missing.</p>
-        <ul>
-          <li>Custom design and build, start to finish</li>
-          <li>Hosting, SSL, and backups managed by us</li>
-          <li>Content updates and fixes, ongoing</li>
-          <li>Fast, mobile first, easy to find on Google</li>
-        </ul>
-        <div class="quote-tag">Quoted directly</div>
-        <a class="go" href="contact.html">Contact us</a>
-      </div>
-      <div class="plan p-assist reveal in d1">
+      <div class="plan p-assist reveal in">
         <h2>Element Assistant</h2>
         <p class="for">For businesses that miss calls and lose leads.</p>
         <ul>
@@ -893,6 +877,18 @@ pricing_body = f"""
           <li>Answers questions and captures every lead</li>
           <li>Books appointments while you work</li>
           <li>Retrained whenever your details change</li>
+        </ul>
+        <div class="quote-tag">Quoted directly</div>
+        <a class="go" href="contact.html">Contact us</a>
+      </div>
+      <div class="plan p-sites reveal in d1">
+        <h2>Element Sites</h2>
+        <p class="for">For businesses whose website is outdated, slow, or missing.</p>
+        <ul>
+          <li>Custom design and build, start to finish</li>
+          <li>Hosting, SSL, and backups managed by us</li>
+          <li>Content updates and fixes, ongoing</li>
+          <li>Fast, mobile first, easy to find on Google</li>
         </ul>
         <div class="quote-tag">Quoted directly</div>
         <a class="go" href="contact.html">Contact us</a>
