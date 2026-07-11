@@ -1265,4 +1265,40 @@ faq_body = f"""
         </details>
         <details class="qa">
           <summary>Why don't you list prices? <span class="plus">+</span></summary>
-          <p class="a">Because ev
+          <p class="a">Because every business needs different things. A one-size price list either overcharges you for things you don't need or undercharges and cuts corners. A direct quote does neither.</p>
+        </details>
+        <details class="qa">
+          <summary>What does the quote include? <span class="plus">+</span></summary>
+          <p class="a">Everything for that job: design, build, launch, and the ongoing upkeep. Hosting, updates, and fixes are part of the arrangement, not extras.</p>
+        </details>
+        <details class="qa">
+          <summary>Do I need to handle anything technical? <span class="plus">+</span></summary>
+          <p class="a">No. We set everything up, run it, and maintain it. You get the results and one point of contact.</p>
+        </details>
+        <details class="qa">
+          <summary>I already have a website. Is that a problem? <span class="plus">+</span></summary>
+          <p class="a">Not at all. We'll look at what you have and tell you straight whether it's worth improving or replacing, and the assistant can be added to a site we didn't build.</p>
+        </details>
+        <details class="qa">
+          <summary>Can you help with something that isn't a website or a chatbot? <span class="plus">+</span></summary>
+          <p class="a">Bring it to us. Tell us what's costing you customers and we'll tell you whether we can fix it. If we can't, we'll say so and point you to someone who can.</p>
+        </details>
+        <details class="qa">
+          <summary>How do payments work? <span class="plus">+</span></summary>
+          <p class="a">Payment terms are part of your quote, including any ongoing amount for hosting and upkeep. Nothing recurring gets added without your sign-off.</p>
+        </details>
+        <details class="qa">
+          <summary>What if I want to stop? <span class="plus">+</span></summary>
+          <p class="a">Ongoing arrangements can be ended with written notice as described in your quote. You keep what you've paid for, and we stop billing for what we no longer provide.</p>
+        </details>
+      </div>
+      <div style="margin-top: 56px;">{cta()}</div>
+    </section>
+  </div>
+"""
+page("faq.html",
+     "FAQ | Element Digital",
+     "Straight answers about how Element Digital works, quotes, and what's included.",
+     faq_body)
+
+print("done")
