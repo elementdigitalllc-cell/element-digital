@@ -54,7 +54,7 @@ CSS = """
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .reveal { opacity: 1; transform: none; transition: none; }
-    .demo *, .corner, .cube g { animation: none !important; }
+    .demo *, .corner, .el-wrap { animation: none !important; }
   }
 
   header {
@@ -122,15 +122,33 @@ CSS = """
 
   /* centered intro */
   .intro-c { padding: 92px 0 84px; text-align: center; }
-  .cube { width: 96px; height: auto; margin: 0 auto 34px; display: block; overflow: visible; }
-  .cube .f-top { animation: f-top 5.5s ease-in-out infinite; }
-  .cube .f-left { animation: f-left 5.5s ease-in-out infinite; animation-delay: 0.5s; }
-  .cube .f-right { animation: f-right 5.5s ease-in-out infinite; animation-delay: 1s; }
-  .cube .f-spark { animation: f-spark 5.5s ease-in-out infinite; animation-delay: 1.5s; }
-  @keyframes f-top { 0%,100% { transform: translate(0,0); } 50% { transform: translate(0,-7px); } }
-  @keyframes f-left { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-6px,5px); } }
-  @keyframes f-right { 0%,100% { transform: translate(0,0); } 50% { transform: translate(6px,5px); } }
-  @keyframes f-spark { 0%,100% { transform: translate(0,0); } 50% { transform: translate(8px,-8px); } }
+  .elements { display: flex; justify-content: center; gap: 18px; margin-bottom: 40px; flex-wrap: wrap; }
+  .el-wrap { animation: el-bob 5s ease-in-out infinite; }
+  .el-wrap:nth-child(2) { animation-delay: 0.6s; }
+  .el-wrap:nth-child(3) { animation-delay: 1.2s; }
+  .el-wrap:nth-child(4) { animation-delay: 1.8s; }
+  @keyframes el-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  .el {
+    width: 96px; height: 96px;
+    border: 1px solid var(--ink); background: #fff;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    text-decoration: none; color: var(--ink);
+    position: relative;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.25s cubic-bezier(0.16,1,0.3,1);
+  }
+  .el::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .el .sym { font-size: 1.7rem; font-weight: 650; letter-spacing: -0.02em; line-height: 1; }
+  .el .nm {
+    font-family: "IBM Plex Mono", monospace; font-size: 0.5625rem;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--sub);
+  }
+  .el:hover { background: var(--ink); color: #fff; transform: translateY(-4px); }
+  .el:hover .nm { color: #cfccd4; }
+  .el.q { border-style: dashed; }
+  .el-sites::before { background: var(--blue); }
+  .el-assist::before { background: var(--purple); }
+  .el-sol::before { background: var(--yellow); }
+  .el.q::before { background: var(--red); }
   .intro-c h1 {
     font-size: clamp(1.9rem, 3.8vw, 3rem);
     letter-spacing: -0.02em; font-weight: 650; line-height: 1.15;
@@ -386,6 +404,9 @@ def footer():
         <ul>
           <li><a href="privacy.html">Privacy Policy</a></li>
           <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="cookies.html">Cookie Policy</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+          <li><a href="accessibility.html">Accessibility</a></li>
         </ul>
       </div>
     </div>
@@ -490,12 +511,20 @@ def cta(href="contact.html", label="Talk to us"):
 def label(text, color):
     return f'<div class="label-row"><span class="label-rule" style="background: var(--{color})"></span><span class="mono">{text}</span></div>'
 
-CUBE_SVG = """<svg class="cube" viewBox="-14 -14 148 148" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <g class="f-top"><polygon points="60,10 104,35 60,60 16,35" fill="#4090c0"/></g>
-  <g class="f-left"><polygon points="16,41 58,65 58,114 16,90" fill="#7b3fb0"/></g>
-  <g class="f-right"><polygon points="104,41 104,90 62,114 62,65" fill="#f0c040"/></g>
-  <g class="f-spark"><polygon points="108,28 124,18 120,38" fill="#d04040"/></g>
-</svg>"""
+ELEMENTS_HTML = """<div class="elements" aria-label="What Element Digital builds">
+        <span class="el-wrap"><a class="el el-sites" href="products.html#sites">
+          <span class="sym">St</span><span class="nm">Sites</span>
+        </a></span>
+        <span class="el-wrap"><a class="el el-assist" href="products.html#assistant">
+          <span class="sym">As</span><span class="nm">Assistant</span>
+        </a></span>
+        <span class="el-wrap"><a class="el el-sol" href="solutions.html">
+          <span class="sym">Sn</span><span class="nm">Solutions</span>
+        </a></span>
+        <span class="el-wrap"><a class="el q" href="contact.html">
+          <span class="sym">?</span><span class="nm">Anything else</span>
+        </a></span>
+      </div>"""
 
 STREET_SVG = """<svg viewBox="0 0 1120 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A row of local storefronts">
   <g stroke="#111111" stroke-width="1.5" fill="none">
@@ -575,9 +604,9 @@ def demo_bot(reveal="reveal d2"):
 index_body = f"""
   <section class="intro-c">
     <div class="wrap">
-      {CUBE_SVG}
-      <h1 class="reveal in">Websites and chatbots<br>for local businesses.</h1>
-      <p class="sub reveal in d1">We build them. We run them. You run the business.</p>
+      {ELEMENTS_HTML}
+      <h1 class="reveal in">The elements your business is missing.</h1>
+      <p class="sub reveal in d1">A solutions company for local businesses. If it's digital and it's costing you customers, we build the fix.</p>
       <div class="intro-actions reveal in d2">
         {cta()}
         <a class="plain-link" href="products.html">See our products</a>
@@ -990,5 +1019,114 @@ page("terms.html",
      "Terms of Service | Element Digital",
      "The terms that govern elementdigital.org and Element Digital's services.",
      terms_body)
+
+# ------- cookies -------
+cookies_body = """
+  <section class="page-head">
+    <div class="wrap">
+      <span class="mono">Legal</span>
+      <h1>Cookie Policy</h1>
+      <p class="lede">Effective July 11, 2026</p>
+    </div>
+  </section>
+  <section class="legal">
+    <div class="wrap prose">
+      <h2>The short version</h2>
+      <p>Element Digital does not set its own cookies on this site. No analytics cookies, no advertising cookies, no tracking pixels. You can browse every page without accepting anything, which is why you don't see a cookie banner.</p>
+
+      <h2>Third-party cookies</h2>
+      <p>Two service providers make this site work, and they may set a limited number of strictly functional cookies:</p>
+      <ul>
+        <li>Cloudflare, which hosts and protects this site, may set security cookies (such as bot protection) that are required to serve the site safely. These do not track you across other websites.</li>
+        <li>Google Fonts serves the typefaces on this site. Font requests go to Google's servers, but the Google Fonts API is designed not to set cookies.</li>
+      </ul>
+
+      <h2>Managing cookies</h2>
+      <p>You can block or delete cookies at any time in your browser settings. Because we don't rely on our own cookies, the site works fine with them disabled.</p>
+
+      <h2>Changes</h2>
+      <p>If we ever add tools that use cookies, we'll update this page and the date at the top before they go live.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about this policy: <a href="mailto:elementdigitalllc@gmail.com">elementdigitalllc@gmail.com</a></p>
+    </div>
+  </section>
+"""
+page("cookies.html",
+     "Cookie Policy | Element Digital",
+     "Element Digital does not set its own cookies. Here's the full picture.",
+     cookies_body)
+
+# ------- disclaimer -------
+disclaimer_body = """
+  <section class="page-head">
+    <div class="wrap">
+      <span class="mono">Legal</span>
+      <h1>Disclaimer</h1>
+      <p class="lede">Effective July 11, 2026</p>
+    </div>
+  </section>
+  <section class="legal">
+    <div class="wrap prose">
+      <h2>General information only</h2>
+      <p>The content on elementdigital.org is provided for general information about our services. It isn't legal, financial, tax, or other professional advice, and you shouldn't rely on it as such.</p>
+
+      <h2>No guaranteed results</h2>
+      <p>We build websites and assistants that are designed to win you customers, and we stand behind our work. But every business and market is different, and we can't guarantee specific outcomes such as rankings, traffic, review counts, lead volume, or revenue.</p>
+
+      <h2>Assistant responses</h2>
+      <p>Assistants we build answer from the information their business owner provides. Like any automated system, they can occasionally be wrong or out of date. The businesses that use them remain responsible for confirming details like pricing, availability, and bookings.</p>
+
+      <h2>Third-party services and links</h2>
+      <p>Our work and this site rely on third-party providers (such as hosting, fonts, and form delivery), and we may link to external websites. We don't control those services or sites and aren't responsible for their content, availability, or practices.</p>
+
+      <h2>Errors and availability</h2>
+      <p>We work to keep this site accurate and online, but we make no warranty that it will always be current, complete, or uninterrupted.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about this disclaimer: <a href="mailto:elementdigitalllc@gmail.com">elementdigitalllc@gmail.com</a></p>
+    </div>
+  </section>
+"""
+page("disclaimer.html",
+     "Disclaimer | Element Digital",
+     "What elementdigital.org does and doesn't promise.",
+     disclaimer_body)
+
+# ------- accessibility -------
+accessibility_body = """
+  <section class="page-head">
+    <div class="wrap">
+      <span class="mono">Legal</span>
+      <h1>Accessibility</h1>
+      <p class="lede">Updated July 11, 2026</p>
+    </div>
+  </section>
+  <section class="legal">
+    <div class="wrap prose">
+      <h2>Our commitment</h2>
+      <p>We want every visitor to be able to use this site, including people who rely on assistive technology. We aim to meet the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA.</p>
+
+      <h2>What we've done</h2>
+      <ul>
+        <li>Semantic HTML structure with proper headings, labels, and landmarks</li>
+        <li>Text and interface colors chosen for strong contrast</li>
+        <li>Full keyboard navigation, including menus and forms</li>
+        <li>Animations automatically disabled for visitors who have reduced motion turned on</li>
+        <li>Text that scales cleanly with browser zoom and system font settings</li>
+      </ul>
+
+      <h2>Known limitations</h2>
+      <p>Some decorative animations and illustrations are hidden from screen readers rather than described in detail, because they don't carry information the text doesn't already provide.</p>
+
+      <h2>Feedback</h2>
+      <p>If any part of this site is hard for you to use, tell us and we'll fix it: <a href="mailto:elementdigitalllc@gmail.com">elementdigitalllc@gmail.com</a>. Accessibility is also something we build into every website we make for clients.</p>
+    </div>
+  </section>
+"""
+page("accessibility.html",
+     "Accessibility | Element Digital",
+     "Element Digital's accessibility commitment for elementdigital.org.",
+     accessibility_body)
 
 print("done")
