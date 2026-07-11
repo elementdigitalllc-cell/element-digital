@@ -11,45 +11,36 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #111111;
-    --sub: #6b6b6b;
-    --line: #e6e4e8;
-    --blue: #4090c0;
-    --yellow: #f0c040;
-    --purple: #7b3fb0;
-    --red: #d04040;
+    --ink: #111111; --sub: #6b6b6b; --line: #e6e4e8;
+    --blue: #4090c0; --yellow: #f0c040; --purple: #7b3fb0; --red: #d04040;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0; }
   html { scroll-behavior: smooth; }
   body {
     font-family: "Inter", -apple-system, "Helvetica Neue", Arial, sans-serif;
-    color: var(--ink);
-    background: #ffffff;
-    -webkit-font-smoothing: antialiased;
-    line-height: 1.5;
+    color: var(--ink); background: #ffffff;
+    -webkit-font-smoothing: antialiased; line-height: 1.5;
   }
   .bg {
     position: fixed; inset: 0; z-index: -1;
     background:
-      radial-gradient(80rem 55rem at 92% -8%, rgba(64, 144, 192, 0.16), transparent 60%),
-      radial-gradient(65rem 48rem at -10% 42%, rgba(123, 63, 176, 0.11), transparent 58%),
-      radial-gradient(70rem 48rem at 60% 115%, rgba(240, 192, 64, 0.14), transparent 60%),
-      radial-gradient(40rem 30rem at 30% -12%, rgba(208, 64, 64, 0.05), transparent 55%),
+      radial-gradient(80rem 55rem at 92% -8%, rgba(64,144,192,0.16), transparent 60%),
+      radial-gradient(65rem 48rem at -10% 42%, rgba(123,63,176,0.11), transparent 58%),
+      radial-gradient(70rem 48rem at 60% 115%, rgba(240,192,64,0.14), transparent 60%),
+      radial-gradient(40rem 30rem at 30% -12%, rgba(208,64,64,0.05), transparent 55%),
       #ffffff;
   }
   .mono {
     font-family: "IBM Plex Mono", "SF Mono", Menlo, monospace;
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--sub);
+    font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sub);
   }
+  .label-row { display: flex; align-items: center; gap: 14px; }
+  .label-rule { width: 26px; height: 2px; display: inline-block; }
   .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 
   .reveal {
-    opacity: 0;
-    transform: translateY(32px);
-    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
   }
   .reveal.in { opacity: 1; transform: none; }
   .reveal.d1 { transition-delay: 0.1s; }
@@ -58,36 +49,28 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .reveal { opacity: 1; transform: none; transition: none; }
-    .corner { animation: none !important; }
+    .demo *, .corner { animation: none !important; }
   }
 
   header {
     position: sticky; top: 0; z-index: 20;
-    background: rgba(255,255,255,0.92);
-    border-bottom: 1px solid var(--line);
+    background: rgba(255,255,255,0.94); border-bottom: 1px solid var(--line);
   }
   .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-  .nav-links { display: flex; gap: 8px; }
+  .nav-links { display: flex; gap: 4px; }
   .nav-links > div { position: relative; }
   .nav-links a.top {
-    color: var(--ink); text-decoration: none;
-    font-size: 0.875rem; font-weight: 500;
-    padding: 10px 12px;
-    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--ink); text-decoration: none; font-size: 0.875rem; font-weight: 500;
+    padding: 10px 12px; display: inline-flex; align-items: center; gap: 6px;
   }
   .nav-links a.top:hover { color: var(--sub); }
   .chev { display: block; transition: transform 0.25s ease; }
   .nav-links > div:hover .chev { transform: rotate(180deg); }
   .menu {
-    position: absolute; top: 100%; left: 0;
-    min-width: 220px;
-    background: #fff;
-    border: 1px solid var(--line);
-    display: none;
-    padding: 6px 0;
+    position: absolute; top: 100%; left: 0; min-width: 220px;
+    background: #fff; border: 1px solid var(--line); display: none; padding: 6px 0;
   }
-  .nav-links > div:hover .menu,
-  .nav-links > div:focus-within .menu { display: block; }
+  .nav-links > div:hover .menu, .nav-links > div:focus-within .menu { display: block; }
   .menu a { display: block; padding: 10px 16px; color: var(--ink); text-decoration: none; font-size: 0.875rem; }
   .menu a:hover { background: #f5f4f6; }
   .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
@@ -97,67 +80,167 @@
 
   .page-head { padding: 96px 0 0; }
   .page-head h1 {
-    font-size: clamp(1.9rem, 3.8vw, 2.75rem);
-    letter-spacing: -0.02em; font-weight: 650;
-    margin-top: 14px; max-width: 24ch;
+    font-size: clamp(1.9rem, 3.8vw, 2.75rem); letter-spacing: -0.02em;
+    font-weight: 650; margin-top: 16px; max-width: 24ch;
   }
-  .page-head p { margin-top: 20px; color: var(--sub); font-size: 1.0625rem; max-width: 54ch; }
+  .page-head .lede { margin-top: 20px; color: var(--sub); font-size: 1.0625rem; max-width: 56ch; }
 
-  .sol-grid {
-    margin: 64px 0 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border-top: 1px solid var(--line);
-    border-left: 1px solid var(--line);
-  }
-  .sol {
-    padding: 40px 36px 44px;
-    border-right: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    background: rgba(255,255,255,0.55);
-  }
-  .sol h2 { font-size: 1.1875rem; font-weight: 600; margin-top: 10px; }
-  .sol p { margin-top: 10px; color: var(--sub); font-size: 0.9375rem; max-width: 46ch; }
-
-  .cta-band { padding: 96px 0 120px; text-align: left; }
-  .cta-band h2 {
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
-    letter-spacing: -0.02em; font-weight: 650;
-    max-width: 24ch;
-  }
-  .cta-frame { position: relative; display: inline-block; padding: 9px; margin-top: 40px; }
+  .cta-frame { position: relative; display: inline-block; padding: 9px; }
   .corner { position: absolute; width: 13px; height: 13px; pointer-events: none; }
   .corner.tl { top: 0; left: 0; border-top: 2px solid var(--ink); border-left: 2px solid var(--ink); animation: drift-tl 2.6s ease-in-out infinite alternate; }
   .corner.tr { top: 0; right: 0; border-top: 2px solid var(--ink); border-right: 2px solid var(--ink); animation: drift-tr 2.6s ease-in-out infinite alternate; }
   .corner.bl { bottom: 0; left: 0; border-bottom: 2px solid var(--ink); border-left: 2px solid var(--ink); animation: drift-bl 2.6s ease-in-out infinite alternate; }
   .corner.br { bottom: 0; right: 0; border-bottom: 2px solid var(--ink); border-right: 2px solid var(--ink); animation: drift-br 2.6s ease-in-out infinite alternate; }
-  @keyframes drift-tl { to { transform: translate(-5px, -5px); } }
-  @keyframes drift-tr { to { transform: translate(5px, -5px); } }
-  @keyframes drift-bl { to { transform: translate(-5px, 5px); } }
-  @keyframes drift-br { to { transform: translate(5px, 5px); } }
-  .cta-frame:hover .corner { animation: none; transform: translate(0, 0); }
+  @keyframes drift-tl { to { transform: translate(-5px,-5px); } }
+  @keyframes drift-tr { to { transform: translate(5px,-5px); } }
+  @keyframes drift-bl { to { transform: translate(-5px,5px); } }
+  @keyframes drift-br { to { transform: translate(5px,5px); } }
+  .cta-frame:hover .corner { animation: none; transform: translate(0,0); }
   .cta {
-    position: relative;
-    display: inline-flex; align-items: center; gap: 12px;
-    background: var(--ink); color: #fff;
-    font-size: 0.9375rem; font-weight: 600;
-    padding: 16px 30px;
-    text-decoration: none;
-    border: 1px solid var(--ink);
-    overflow: hidden;
+    position: relative; display: inline-flex; align-items: center; gap: 12px;
+    background: var(--ink); color: #fff; font-size: 0.9375rem; font-weight: 600;
+    padding: 16px 30px; text-decoration: none; border: 1px solid var(--ink); overflow: hidden;
   }
-  .cta .arr { display: inline-block; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+  .cta .arr { display: inline-block; transition: transform 0.3s cubic-bezier(0.16,1,0.3,1); }
   .cta:hover .arr { transform: translateX(6px); }
   .cta::after {
-    content: ""; position: absolute; left: 0; bottom: 0;
-    height: 2px; width: 100%;
+    content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 100%;
     background: linear-gradient(90deg, var(--blue), var(--purple), var(--red), var(--yellow));
-    transform: translateX(-101%);
-    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateX(-101%); transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);
   }
   .cta:hover::after { transform: translateX(0); }
+  .plain-link {
+    color: var(--ink); text-decoration: none; font-size: 0.9375rem; font-weight: 500;
+    border-bottom: 1px solid var(--ink); padding-bottom: 2px;
+  }
+  .plain-link:hover { color: var(--sub); border-color: var(--sub); }
 
-  footer { border-top: 1px solid var(--line); background: #fff; }
+  /* landing */
+  .intro { padding: 110px 0 88px; }
+  .intro h1 {
+    font-size: clamp(1.8rem, 3.4vw, 2.75rem); line-height: 1.25;
+    letter-spacing: -0.02em; font-weight: 600; max-width: 32ch;
+  }
+  .intro h1 .quiet { color: var(--sub); }
+  .intro-actions { margin-top: 44px; display: flex; align-items: center; gap: 32px; }
+  .street { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .street svg { display: block; width: 100%; height: auto; }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; padding: 72px 0 0; }
+  .card { border: 1px solid var(--line); background: rgba(255,255,255,0.65); padding: 36px; display: flex; flex-direction: column; }
+  .card svg { display: block; width: 100%; height: auto; margin: 26px 0; border: 1px solid var(--line); background: #fff; }
+  .card h3 { font-size: 1.3125rem; font-weight: 650; letter-spacing: -0.01em; }
+  .card p { margin-top: 10px; color: var(--sub); font-size: 0.9375rem; flex: 1; }
+  .card .plain-link { margin-top: 22px; align-self: flex-start; }
+  .note-band { padding: 88px 0; }
+  .note-band .big {
+    font-size: clamp(1.35rem, 2.6vw, 1.9rem); font-weight: 600;
+    letter-spacing: -0.015em; line-height: 1.35; max-width: 44ch;
+  }
+  .note-band .big .quiet { color: var(--sub); }
+  .info { border-top: 1px solid var(--line); padding: 72px 0 88px; }
+  .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; margin-top: 48px; }
+  .info-grid h3 { font-size: 1.0625rem; font-weight: 600; }
+  .info-grid p { margin-top: 8px; color: var(--sub); font-size: 0.9375rem; }
+  .cta-band { border-top: 1px solid var(--line); padding: 88px 0 112px; }
+  .cta-band h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); letter-spacing: -0.02em; font-weight: 650; max-width: 26ch; }
+  .cta-band .cta-frame { margin-top: 40px; }
+
+  /* products */
+  .product { border-top: 1px solid var(--line); }
+  .product:first-of-type { border-top: none; }
+  .product .inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; padding: 88px 0; align-items: center; }
+  .product h2 { font-size: clamp(1.5rem, 2.8vw, 2.1rem); letter-spacing: -0.02em; font-weight: 650; line-height: 1.18; margin-top: 14px; }
+  .product .body { margin-top: 18px; color: var(--sub); font-size: 1.0625rem; max-width: 54ch; }
+  .product ul { margin-top: 28px; list-style: none; max-width: 54ch; }
+  .product li { padding: 13px 0; border-top: 1px solid var(--line); font-size: 0.9375rem; }
+
+  .demo { border: 1px solid var(--line); background: #fff; aspect-ratio: 5 / 4; position: relative; overflow: hidden; }
+  .demo .brandmark { position: absolute; top: 14px; left: 16px; display: flex; align-items: center; gap: 8px; z-index: 2; }
+  .demo .brandmark img { height: 14px; }
+  .demo .brandmark .mono { font-size: 0.625rem; color: #9a969e; }
+  .d-web .stage { position: absolute; inset: 0; display: grid; place-items: center; }
+  .d-web .frame { width: 300px; height: 220px; border: 1px solid var(--ink); background: #fff; display: flex; flex-direction: column; }
+  .d-web .chrome { height: 26px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 5px; padding: 0 10px; flex: none; }
+  .d-web .chrome i { width: 6px; height: 6px; background: #d4d2d8; display: block; }
+  .d-web .page { flex: 1; padding: 14px; position: relative; }
+  .d-web .blk { position: absolute; transform-origin: left center; }
+  .d-web .b-nav  { top: 14px; left: 14px; right: 14px; height: 10px; background: #eceaef; animation: blk 9s infinite; }
+  .d-web .b-h1   { top: 40px; left: 14px; width: 55%; height: 22px; background: var(--ink); animation: blk 9s infinite; animation-delay: 0.45s; }
+  .d-web .b-t1   { top: 74px; left: 14px; width: 70%; height: 8px; background: #dddbe1; animation: blk 9s infinite; animation-delay: 0.9s; }
+  .d-web .b-t2   { top: 88px; left: 14px; width: 62%; height: 8px; background: #dddbe1; animation: blk 9s infinite; animation-delay: 1.15s; }
+  .d-web .b-cta  { top: 110px; left: 14px; width: 84px; height: 24px; background: var(--ink); animation: blk 9s infinite; animation-delay: 1.5s; }
+  .d-web .b-img  { top: 40px; right: 14px; width: 30%; height: 94px; background: rgba(64,144,192,0.18); border: 1px solid rgba(64,144,192,0.35); animation: blk 9s infinite; animation-delay: 1.85s; }
+  .d-web .b-f1   { bottom: 14px; left: 14px; width: 28%; height: 8px; background: #eceaef; animation: blk 9s infinite; animation-delay: 2.2s; }
+  .d-web .b-f2   { bottom: 14px; left: 38%; width: 28%; height: 8px; background: #eceaef; animation: blk 9s infinite; animation-delay: 2.4s; }
+  @keyframes blk { 0% {opacity:0; transform:scaleX(0)} 5% {opacity:1; transform:scaleX(1)} 82% {opacity:1} 92%,100% {opacity:0} }
+  .d-bot .stage { position: absolute; inset: 0; display: grid; place-items: center; }
+  .d-bot .chat { width: 280px; height: 230px; border: 1px solid var(--ink); background: #fff; display: flex; flex-direction: column; }
+  .d-bot .chead { height: 34px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 8px; padding: 0 12px; flex: none; }
+  .d-bot .chead img { height: 14px; }
+  .d-bot .chead .mono { font-size: 0.625rem; color: var(--ink); }
+  .d-bot .chead .dot { width: 6px; height: 6px; background: #3fae5a; margin-left: auto; }
+  .d-bot .clog { flex: 1; padding: 12px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
+  .d-bot .msg { max-width: 78%; font-size: 0.6875rem; line-height: 1.45; padding: 8px 10px; opacity: 0; }
+  .d-bot .from-user { align-self: flex-end; border: 1px solid var(--line); color: var(--ink); }
+  .d-bot .from-bot  { align-self: flex-start; background: var(--ink); color: #fff; }
+  .d-bot .m1 { animation: msg1 10s infinite; }
+  .d-bot .typing { align-self: flex-start; display: flex; gap: 4px; padding: 8px 10px; opacity: 0; animation: msgTyping 10s infinite; }
+  .d-bot .typing i { width: 5px; height: 5px; background: #b9b6bf; display: block; animation: tw 1s infinite; }
+  .d-bot .typing i:nth-child(2) { animation-delay: 0.15s; }
+  .d-bot .typing i:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes tw { 0%,100% {opacity:0.35} 50% {opacity:1} }
+  .d-bot .m2 { animation: msg2 10s infinite; }
+  .d-bot .m3 { animation: msg3 10s infinite; }
+  .d-bot .m4 { animation: msg4 10s infinite; }
+  @keyframes msg1 { 0%,6% {opacity:0; transform:translateY(6px)} 10% {opacity:1; transform:none} 86% {opacity:1} 94%,100% {opacity:0} }
+  @keyframes msgTyping { 0%,12% {opacity:0} 15% {opacity:1} 26% {opacity:1} 28% {opacity:0} 100% {opacity:0} }
+  @keyframes msg2 { 0%,28% {opacity:0; transform:translateY(6px)} 32% {opacity:1; transform:none} 86% {opacity:1} 94%,100% {opacity:0} }
+  @keyframes msg3 { 0%,44% {opacity:0; transform:translateY(6px)} 48% {opacity:1; transform:none} 86% {opacity:1} 94%,100% {opacity:0} }
+  @keyframes msg4 { 0%,60% {opacity:0; transform:translateY(6px)} 64% {opacity:1; transform:none} 86% {opacity:1} 94%,100% {opacity:0} }
+
+  /* solutions */
+  .sol-grid { margin: 64px 0 0; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  .sol { padding: 40px 36px 44px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(255,255,255,0.55); }
+  .sol h2 { font-size: 1.1875rem; font-weight: 600; margin-top: 10px; }
+  .sol p { margin-top: 10px; color: var(--sub); font-size: 0.9375rem; max-width: 46ch; }
+
+  /* pricing */
+  .price-points { margin-top: 56px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
+  .price-points h3 { font-size: 1.0625rem; font-weight: 600; }
+  .price-points p { margin-top: 8px; color: var(--sub); font-size: 0.9375rem; }
+
+  /* contact */
+  .contact { padding: 72px 0 112px; }
+  .contact .inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+  form { display: grid; gap: 20px; }
+  .field label { display: block; font-size: 0.8125rem; font-weight: 600; margin-bottom: 6px; }
+  .field input, .field textarea {
+    width: 100%; font: inherit; font-size: 0.9375rem; color: var(--ink);
+    background: #fff; border: 1px solid #d4d2d8; padding: 12px 14px;
+  }
+  .field input:focus, .field textarea:focus { outline: none; border-color: var(--ink); }
+  .field textarea { min-height: 120px; resize: vertical; }
+  form button {
+    font: inherit; font-size: 0.9375rem; font-weight: 600; background: var(--ink); color: #fff;
+    border: 1px solid var(--ink); padding: 14px 28px; cursor: pointer; justify-self: start;
+  }
+  form button:hover { background: #333; }
+  form button:disabled { opacity: 0.5; cursor: default; }
+  .form-status { font-size: 0.9375rem; margin-top: 4px; }
+  .form-status.ok { color: #1a7f37; }
+  .form-status.err { color: var(--red); }
+  .contact-side p { margin-top: 18px; color: var(--sub); max-width: 44ch; }
+  .contact-side a { color: var(--ink); }
+
+  /* legal */
+  .legal { padding: 24px 0 112px; }
+  .legal .prose { max-width: 72ch; }
+  .legal h2 { font-size: 1.1875rem; font-weight: 650; margin-top: 44px; }
+  .legal p, .legal li { color: var(--sub); font-size: 0.9375rem; margin-top: 12px; }
+  .legal ul { margin-top: 6px; padding-left: 20px; }
+  .legal a { color: var(--ink); }
+
+  footer { border-top: 1px solid var(--line); background: #fff; margin-top: 88px; }
   .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding: 64px 0; }
   .foot-brand img { height: 24px; }
   .foot-brand .wordmark { display: flex; align-items: center; gap: 10px; }
@@ -165,31 +248,34 @@
   .foot-brand .wordmark em { font-style: normal; font-weight: 500; color: var(--sub); }
   .foot-brand p { margin-top: 14px; color: var(--sub); font-size: 0.875rem; max-width: 34ch; }
   .foot-col h4 {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--sub); font-weight: 500;
+    font-family: "IBM Plex Mono", monospace; font-size: 0.6875rem;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--sub); font-weight: 500;
   }
   .foot-col ul { list-style: none; margin-top: 16px; }
   .foot-col li { margin-bottom: 10px; }
   .foot-col a { color: var(--ink); text-decoration: none; font-size: 0.875rem; }
   .foot-col a:hover { color: var(--sub); }
   .foot-bottom {
-    border-top: 1px solid var(--line);
-    padding: 24px 0;
-    display: flex; justify-content: space-between; align-items: center;
-    gap: 16px; flex-wrap: wrap;
+    border-top: 1px solid var(--line); padding: 24px 0;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
   }
   .foot-bottom .mono { text-transform: none; letter-spacing: 0.02em; font-size: 0.75rem; }
   .foot-bottom a { color: var(--sub); text-decoration: none; }
   .foot-bottom a:hover { color: var(--ink); }
 
   @media (max-width: 860px) {
+    .cards, .product .inner, .contact .inner { grid-template-columns: 1fr; }
+    .product .inner { gap: 40px; }
+    .contact .inner { gap: 48px; }
+    .info-grid, .price-points { grid-template-columns: 1fr; gap: 32px; }
     .foot-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
   }
   @media (max-width: 700px) {
-    .nav-links a.top { font-size: 0.8125rem; padding: 10px 8px; }
+    .nav-links a.top { font-size: 0.8125rem; padding: 10px 7px; }
     .brand span { display: none; }
     .menu { display: none !important; }
+    .intro { padding: 80px 0 64px; }
+    .intro-actions { flex-direction: column; align-items: flex-start; gap: 24px; }
     .sol-grid { grid-template-columns: 1fr; }
     .foot-grid { grid-template-columns: 1fr; gap: 36px; padding: 48px 0; }
   }
@@ -202,31 +288,26 @@
   <div class="wrap nav">
     <nav class="nav-links">
       <div>
-        <a class="top" href="index.html#products">Products
-          <svg class="chev" width="9" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-        </a>
+        <a class="top" href="products.html">Products <svg class="chev" width="9" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
         <div class="menu">
-          <a href="index.html#websites">Business Websites</a>
-          <a href="index.html#chatbots">AI Chatbot</a>
+          <a href="products.html#websites">Business Websites</a>
+          <a href="products.html#chatbots">AI Chatbot</a>
         </div>
       </div>
       <div>
-        <a class="top" href="solutions.html">Solutions
-          <svg class="chev" width="9" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-        </a>
+        <a class="top" href="solutions.html">Solutions <svg class="chev" width="9" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
         <div class="menu">
-          <a href="#sol-restaurants">Restaurants &amp; cafés</a>
-          <a href="#sol-salons">Salons &amp; barbershops</a>
-          <a href="#sol-home">Home services</a>
-          <a href="#sol-retail">Retail &amp; shops</a>
+          <a href="solutions.html#sol-restaurants">Restaurants &amp; caf&eacute;s</a>
+          <a href="solutions.html#sol-salons">Salons &amp; barbershops</a>
+          <a href="solutions.html#sol-home">Home services</a>
+          <a href="solutions.html#sol-retail">Retail &amp; shops</a>
         </div>
       </div>
+      <div><a class="top" href="pricing.html">Pricing</a></div>
       <div>
-        <a class="top" href="index.html#contact">Contact
-          <svg class="chev" width="9" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-        </a>
+        <a class="top" href="contact.html">Contact <svg class="chev" width="9" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
         <div class="menu">
-          <a href="index.html#contact">Send a message</a>
+          <a href="contact.html">Send a message</a>
           <a href="mailto:elementdigitalllc@gmail.com">Email us</a>
         </div>
       </div>
@@ -237,21 +318,20 @@
     </a>
   </div>
 </header>
-
 <main>
 
   <section class="page-head">
     <div class="wrap">
-      <span class="mono reveal in">Solutions</span>
-      <h1 class="reveal in d1">Built around how local business actually works.</h1>
-      <p class="reveal in d1">Different businesses lose customers in different places. Here's where we plug the gaps.</p>
+      <div class="label-row"><span class="label-rule" style="background: var(--yellow)"></span><span class="mono">Solutions</span></div>
+      <h1 class="reveal in">Built around how local business actually works.</h1>
+      <p class="lede reveal in d1">Different businesses lose customers in different places. Here's where we plug the gaps.</p>
     </div>
   </section>
 
   <div class="wrap">
     <div class="sol-grid">
       <div class="sol reveal" id="sol-restaurants">
-        <span class="mono">Restaurants &amp; cafés</span>
+        <span class="mono">Restaurants &amp; caf&eacute;s</span>
         <h2>Fewer phone calls. Fuller tables.</h2>
         <p>Menus, hours, and reservations live on a site that loads fast. The assistant answers "are you open?" and takes bookings while your staff pours coffee.</p>
       </div>
@@ -273,15 +353,13 @@
     </div>
   </div>
 
-  <section class="cta-band">
+  <section class="note-band">
     <div class="wrap">
-      <h2 class="reveal">Don't see your business here? It still applies.</h2>
-      <div class="reveal d1">
-        <div class="cta-frame">
-          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-          <a class="cta" href="index.html#contact">Talk to us <span class="arr">&rarr;</span></a>
-        </div>
-      </div>
+      <p class="big reveal">Don't see your business here? <span class="quiet">It still applies. And if your problem isn't a website or a chatbot, bring it to us anyway.</span></p>
+      <div class="reveal d1" style="margin-top: 36px;"><div class="cta-frame">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <a class="cta" href="contact.html">Talk to us <span class="arr">&rarr;</span></a>
+    </div></div>
     </div>
   </section>
 
@@ -300,34 +378,33 @@
       <div class="foot-col">
         <h4>Products</h4>
         <ul>
-          <li><a href="index.html#websites">Business Websites</a></li>
-          <li><a href="index.html#chatbots">AI Chatbot</a></li>
-        </ul>
-      </div>
-      <div class="foot-col">
-        <h4>Solutions</h4>
-        <ul>
-          <li><a href="#sol-restaurants">Restaurants &amp; cafés</a></li>
-          <li><a href="#sol-salons">Salons &amp; barbershops</a></li>
-          <li><a href="#sol-home">Home services</a></li>
-          <li><a href="#sol-retail">Retail &amp; shops</a></li>
+          <li><a href="products.html#websites">Business Websites</a></li>
+          <li><a href="products.html#chatbots">AI Chatbot</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
         </ul>
       </div>
       <div class="foot-col">
         <h4>Company</h4>
         <ul>
-          <li><a href="index.html#contact">Contact</a></li>
+          <li><a href="solutions.html">Solutions</a></li>
+          <li><a href="contact.html">Contact</a></li>
           <li><a href="mailto:elementdigitalllc@gmail.com">elementdigitalllc@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
         </ul>
       </div>
     </div>
     <div class="foot-bottom">
-      <span class="mono">© 2026 Element Digital LLC. All rights reserved.</span>
+      <span class="mono">&copy; 2026 Element Digital LLC. All rights reserved.</span>
       <a class="mono" href="index.html">elementdigital.org</a>
     </div>
   </div>
 </footer>
-
 <script>
   const io = new IntersectionObserver((entries) => {
     for (const e of entries) {
@@ -336,6 +413,5 @@
   }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
-
 </body>
 </html>
