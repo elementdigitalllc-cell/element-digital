@@ -75,7 +75,11 @@ CSS = """
     position: absolute; top: 100%; left: 0; min-width: 220px;
     background: #fff; border: 1px solid var(--line); display: none; padding: 6px 0;
   }
-  .nav-links > div:hover .menu, .nav-links > div:focus-within .menu { display: block; }
+  @media (min-width: 701px) {
+    .nav-links > div:hover .menu, .nav-links > div:focus-within .menu { display: block; }
+  }
+  .nav-links > div.open .menu { display: block; }
+  .nav-links > div.open .chev { transform: rotate(180deg); }
   .menu a { display: block; padding: 10px 16px; color: var(--ink); text-decoration: none; font-size: 0.875rem; }
   .menu a:hover { background: #f5f4f6; }
   .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
@@ -188,11 +192,8 @@ CSS = """
   .product li { padding: 13px 0; border-top: 1px solid var(--line); font-size: 0.9375rem; }
 
   .demo { border: 1px solid var(--line); background: #fff; aspect-ratio: 5 / 4; position: relative; overflow: hidden; }
-  .demo .brandmark { position: absolute; top: 14px; left: 16px; display: flex; align-items: center; gap: 8px; z-index: 2; }
-  .demo .brandmark img { height: 14px; }
-  .demo .brandmark .mono { font-size: 0.625rem; color: #9a969e; }
   .d-web .stage { position: absolute; inset: 0; display: grid; place-items: center; }
-  .d-web .frame { width: 300px; height: 220px; border: 1px solid var(--ink); background: #fff; display: flex; flex-direction: column; }
+  .d-web .frame { width: min(300px, 94%); height: 220px; border: 1px solid var(--ink); background: #fff; display: flex; flex-direction: column; }
   .d-web .chrome { height: 26px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 5px; padding: 0 10px; flex: none; }
   .d-web .chrome i { width: 6px; height: 6px; background: #d4d2d8; display: block; }
   .d-web .page { flex: 1; padding: 14px; position: relative; }
@@ -207,7 +208,7 @@ CSS = """
   .d-web .b-f2   { bottom: 14px; left: 38%; width: 28%; height: 8px; background: #eceaef; animation: blk 9s infinite; animation-delay: 2.4s; }
   @keyframes blk { 0% {opacity:0; transform:scaleX(0)} 5% {opacity:1; transform:scaleX(1)} 82% {opacity:1} 92%,100% {opacity:0} }
   .d-bot .stage { position: absolute; inset: 0; display: grid; place-items: center; }
-  .d-bot .chat { width: 280px; height: 230px; border: 1px solid var(--ink); background: #fff; display: flex; flex-direction: column; }
+  .d-bot .chat { width: min(280px, 94%); height: 230px; border: 1px solid var(--ink); background: #fff; display: flex; flex-direction: column; }
   .d-bot .chead { height: 34px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 8px; padding: 0 12px; flex: none; }
   .d-bot .chead img { height: 14px; }
   .d-bot .chead .mono { font-size: 0.625rem; color: var(--ink); }
@@ -238,9 +239,53 @@ CSS = """
   .sol p { margin-top: 8px; color: var(--sub); font-size: 0.875rem; }
 
   /* pricing */
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+  .plan {
+    border: 1px solid var(--ink); background: #fff;
+    padding: 32px; position: relative;
+    display: flex; flex-direction: column;
+  }
+  .plan::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .plan.p-sites::before { background: var(--blue); }
+  .plan.p-assist::before { background: var(--purple); }
+  .plan.p-else { border-style: dashed; }
+  .plan.p-else::before { background: var(--red); }
+  .plan h2 { font-size: 1.375rem; font-weight: 650; letter-spacing: -0.01em; }
+  .plan .for { margin-top: 8px; color: var(--sub); font-size: 0.9375rem; }
+  .plan ul { list-style: none; margin-top: 22px; margin-bottom: 26px; }
+  .plan li { padding: 11px 0; border-top: 1px solid var(--line); font-size: 0.875rem; }
+  .plan .quote-tag {
+    margin-top: auto;
+    font-family: "IBM Plex Mono", monospace; font-size: 0.8125rem;
+    letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500;
+    padding-bottom: 16px;
+  }
+  .plan .go {
+    display: block; text-align: center;
+    background: var(--ink); color: #fff;
+    font-size: 0.9375rem; font-weight: 600;
+    padding: 14px 0; text-decoration: none; border: 1px solid var(--ink);
+  }
+  .plan .go:hover { background: #333; }
+  .plan.p-else .go { background: #fff; color: var(--ink); }
+  .plan.p-else .go:hover { background: #f5f4f6; }
   .price-points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; margin-top: 48px; }
   .price-points h3 { font-size: 1.0625rem; font-weight: 600; }
   .price-points p { margin-top: 8px; color: var(--sub); font-size: 0.9375rem; }
+
+  /* faq */
+  .faq { border-top: 1px solid var(--line); margin-top: 88px; padding: 72px 0 24px; }
+  .faq-list { margin-top: 40px; max-width: 760px; }
+  .qa { border-bottom: 1px solid var(--line); }
+  .qa summary {
+    padding: 20px 0; cursor: pointer; list-style: none;
+    display: flex; justify-content: space-between; align-items: center; gap: 24px;
+    font-weight: 600; font-size: 1rem;
+  }
+  .qa summary::-webkit-details-marker { display: none; }
+  .qa .plus { flex: none; font-size: 1.2rem; font-weight: 500; color: var(--sub); transition: transform 0.25s ease; }
+  .qa[open] .plus { transform: rotate(45deg); }
+  .qa .a { padding: 0 0 22px; color: var(--sub); font-size: 0.9375rem; max-width: 62ch; }
 
   /* contact */
   .contact { padding: 72px 0 112px; }
@@ -317,18 +362,19 @@ CSS = """
     .product .inner { gap: 40px; }
     .contact .inner { gap: 48px; }
     .info-grid, .price-points { grid-template-columns: 1fr; gap: 32px; }
+    .plans { grid-template-columns: 1fr; }
     .foot-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
   }
   @media (max-width: 700px) {
     .nav-links a.top { font-size: 0.8125rem; padding: 10px 7px; }
     .brand span { display: none; }
-    .menu { display: none !important; }
     .intro-c { padding: 72px 0 64px; }
     .intro-c .intro-actions { flex-direction: column; gap: 24px; }
     .sol-grid { grid-template-columns: 1fr; }
     .foot-grid { grid-template-columns: 1fr; gap: 36px; padding: 48px 0; }
     #btt { right: 16px; bottom: 16px; }
   }
+
 """
 
 CHEV = '<svg class="chev" width="9" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>'
@@ -381,7 +427,7 @@ def footer():
           <img src="{LOGO}" alt="Element Digital">
           <span>ELEMENT <em>DIGITAL</em></span>
         </div>
-        <p>Websites and chatbots for local businesses. Built by us, looked after by us.</p>
+        <p>Websites and chatbots for businesses. Built by us, looked after by us.</p>
       </div>
       <div class="foot-col">
         <h4>Products</h4>
@@ -431,6 +477,25 @@ BASE_JS = """
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
   btt.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+  const compactNav = window.matchMedia('(max-width: 700px)');
+  document.querySelectorAll('.nav-links > div').forEach((d) => {
+    const top = d.querySelector('a.top');
+    if (!d.querySelector('.menu')) return;
+    top.addEventListener('click', (e) => {
+      if (!compactNav.matches) return;
+      if (!d.classList.contains('open')) {
+        e.preventDefault();
+        document.querySelectorAll('.nav-links > div.open').forEach((o) => o.classList.remove('open'));
+        d.classList.add('open');
+      }
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-links')) {
+      document.querySelectorAll('.nav-links > div.open').forEach((o) => o.classList.remove('open'));
+    }
+  });
 """
 
 FORM_JS = """
@@ -526,7 +591,7 @@ ELEMENTS_HTML = """<div class="elements" aria-label="What Element Digital builds
         </a></span>
       </div>"""
 
-STREET_SVG = """<svg viewBox="0 0 1120 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A row of local storefronts">
+STREET_SVG = """<svg viewBox="0 0 1120 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A row of storefronts">
   <g stroke="#111111" stroke-width="1.5" fill="none">
     <line x1="0" y1="168" x2="1120" y2="168"/>
     <rect x="90" y="58" width="200" height="110" fill="#ffffff"/>
@@ -566,7 +631,6 @@ STREET_SVG = """<svg viewBox="0 0 1120 190" xmlns="http://www.w3.org/2000/svg" r
 
 def demo_web(reveal="reveal d2"):
     return f"""<div class="demo d-web {reveal}" aria-hidden="true">
-  <div class="brandmark"><img src="{LOGO}" alt=""><span class="mono">element sites</span></div>
   <div class="stage">
     <div class="frame">
       <div class="chrome"><i></i><i></i><i></i></div>
@@ -581,7 +645,6 @@ def demo_web(reveal="reveal d2"):
 
 def demo_bot(reveal="reveal d2"):
     return f"""<div class="demo d-bot {reveal}" aria-hidden="true">
-  <div class="brandmark"><img src="{LOGO}" alt=""><span class="mono">element assistant</span></div>
   <div class="stage">
     <div class="chat">
       <div class="chead">
@@ -606,7 +669,7 @@ index_body = f"""
     <div class="wrap">
       {ELEMENTS_HTML}
       <h1 class="reveal in">The elements your business is missing.</h1>
-      <p class="sub reveal in d1">A solutions company for local businesses. If it's digital and it's costing you customers, we build the fix.</p>
+      <p class="sub reveal in d1">A solutions company for businesses. If it's digital and it's costing you customers, we build the fix.</p>
       <div class="intro-actions reveal in d2">
         {cta()}
         <a class="plain-link" href="products.html">See our products</a>
@@ -670,8 +733,8 @@ index_body = f"""
   </section>
 """
 page("index.html",
-     "Element Digital | Websites and chatbots for local businesses",
-     "Element Digital is a solutions company for local businesses. We build clean, fast websites and chatbots that answer customers around the clock.",
+     "Element Digital | Websites and chatbots for businesses",
+     "Element Digital is a solutions company for businesses. We build clean, fast websites and chatbots that answer customers around the clock.",
      index_body)
 
 # ------- products -------
@@ -690,7 +753,7 @@ products_body = f"""
         <div>
           {label('Element Sites', 'blue')}
           <h2 class="reveal">A website that takes your business seriously.</h2>
-          <p class="body reveal d1">Most local business websites are slow, outdated, or missing entirely. Customers notice before they ever call. We design and build sites that look right on a phone, say what you do, and make it easy to book or get in touch.</p>
+          <p class="body reveal d1">Most business websites are slow, outdated, or missing entirely. Customers notice before they ever call. We design and build sites that look right on a phone, say what you do, and make it easy to book or get in touch.</p>
           <ul>
             <li class="reveal d1">Designed and built for you, start to finish</li>
             <li class="reveal d2">Fast, mobile first, easy to find on Google</li>
@@ -772,7 +835,7 @@ solutions_body = f"""
   <section class="page-head">
     <div class="wrap">
       {label('Solutions', 'yellow')}
-      <h1 class="reveal in">Built around how local business actually works.</h1>
+      <h1 class="reveal in">Built around how your business actually works.</h1>
       <p class="lede reveal in d1">Different businesses lose customers in different places. Here's where we plug the gaps.</p>
     </div>
   </section>
@@ -802,53 +865,52 @@ pricing_body = f"""
     <div class="wrap">
       {label('Pricing', 'red')}
       <h1 class="reveal in">One straight number.</h1>
-      <p class="lede reveal in d1">We don't publish menus of tiers and add-ons. We look at your business, tell you what's worth doing, and quote the whole job. You approve the number before anything starts.</p>
+      <p class="lede reveal in d1">No packages, no tiers, no surprise line items. Tell us about your business and you get one number for the whole job.</p>
     </div>
   </section>
 
-  <div class="wrap" style="margin-top: 56px;">
-    <section class="product" id="sites">
-      <div class="inner">
-        <div>
-          {label('Element Sites', 'blue')}
-          <h2 class="reveal">Your website, handled completely.</h2>
-          <p class="body reveal d1">For businesses whose site is outdated, slow, or missing. One quote covers design, build, launch, and upkeep.</p>
-          <ul>
-            <li class="reveal d1">Custom design and build, start to finish</li>
-            <li class="reveal d2">Hosting, SSL, and backups managed by us</li>
-            <li class="reveal d3">Content updates and fixes, ongoing</li>
-          </ul>
-        </div>
-        {demo_web()}
+  <div class="wrap">
+    <div class="plans">
+      <div class="plan p-sites reveal in">
+        <h2>Element Sites</h2>
+        <p class="for">For businesses whose website is outdated, slow, or missing.</p>
+        <ul>
+          <li>Custom design and build, start to finish</li>
+          <li>Hosting, SSL, and backups managed by us</li>
+          <li>Content updates and fixes, ongoing</li>
+          <li>Fast, mobile first, easy to find on Google</li>
+        </ul>
+        <div class="quote-tag">Quoted directly</div>
+        <a class="go" href="contact.html">Contact us</a>
       </div>
-    </section>
-
-    <section class="product" id="assistant">
-      <div class="inner">
-        <div>
-          {label('Element Assistant', 'purple')}
-          <h2 class="reveal">Your customers answered, around the clock.</h2>
-          <p class="body reveal d1">For businesses that miss calls and lose leads. One quote covers training, setup, launch, and maintenance.</p>
-          <ul>
-            <li class="reveal d1">Trained on your business, your services, your tone</li>
-            <li class="reveal d2">Installed on your site and tested with you</li>
-            <li class="reveal d3">Retrained whenever your details change</li>
-          </ul>
-        </div>
-        {demo_bot()}
+      <div class="plan p-assist reveal in d1">
+        <h2>Element Assistant</h2>
+        <p class="for">For businesses that miss calls and lose leads.</p>
+        <ul>
+          <li>Trained on your business and your tone</li>
+          <li>Answers questions and captures every lead</li>
+          <li>Books appointments while you work</li>
+          <li>Retrained whenever your details change</li>
+        </ul>
+        <div class="quote-tag">Quoted directly</div>
+        <a class="go" href="contact.html">Contact us</a>
       </div>
-    </section>
+      <div class="plan p-else reveal in d2">
+        <h2>Anything else</h2>
+        <p class="for">Have a different problem? If it's digital, bring it to us.</p>
+        <ul>
+          <li>A straight assessment of what's worth doing</li>
+          <li>If we can solve it, we tell you how</li>
+          <li>If we can't, we say so and point you right</li>
+        </ul>
+        <div class="quote-tag">Ask us</div>
+        <a class="go" href="contact.html">Contact us</a>
+      </div>
+    </div>
   </div>
 
-  <section class="cta-band" style="border-top: 1px solid var(--line); margin-top: 88px;">
-    <div class="wrap">
-      <h2 class="reveal">Want your number? Tell us about your business.</h2>
-      <div class="reveal d1">{cta(label="Contact us")}</div>
-    </div>
-  </section>
-
-  <section style="border-top: 1px solid var(--line); padding-bottom: 24px;">
-    <div class="wrap" style="padding-top: 72px;">
+  <div class="wrap">
+    <section style="margin-top: 88px; border-top: 1px solid var(--line); padding-top: 72px;">
       {label('How quoting works', 'red')}
       <div class="price-points">
         <div class="reveal">
@@ -864,8 +926,48 @@ pricing_body = f"""
           <p>Hosting, updates, and fixes are covered as part of the arrangement. You never get billed for a surprise.</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <section class="faq">
+      {label('FAQ', 'red')}
+      <div class="faq-list">
+        <details class="qa">
+          <summary>How much does it cost? <span class="plus">+</span></summary>
+          <p class="a">Every job is quoted directly. We look at your business, agree on what's worth doing, and give you one number for the whole thing before any work starts.</p>
+        </details>
+        <details class="qa">
+          <summary>Why don't you list prices? <span class="plus">+</span></summary>
+          <p class="a">Because every business needs different things. A one-size price list either overcharges you for things you don't need or undercharges and cuts corners. A direct quote does neither.</p>
+        </details>
+        <details class="qa">
+          <summary>What does the quote include? <span class="plus">+</span></summary>
+          <p class="a">Everything for that job: design, build, launch, and the ongoing upkeep. Hosting, updates, and fixes are part of the arrangement, not extras.</p>
+        </details>
+        <details class="qa">
+          <summary>Do I need to handle anything technical? <span class="plus">+</span></summary>
+          <p class="a">No. We set everything up, run it, and maintain it. You get the results and one point of contact.</p>
+        </details>
+        <details class="qa">
+          <summary>I already have a website. Is that a problem? <span class="plus">+</span></summary>
+          <p class="a">Not at all. We'll look at what you have and tell you straight whether it's worth improving or replacing, and the assistant can be added to a site we didn't build.</p>
+        </details>
+        <details class="qa">
+          <summary>Can you help with something that isn't a website or a chatbot? <span class="plus">+</span></summary>
+          <p class="a">Bring it to us. If it's digital and it's costing you customers, we'll tell you whether we can fix it. If we can't, we'll say so and point you to someone who can.</p>
+        </details>
+        <details class="qa">
+          <summary>How do payments work? <span class="plus">+</span></summary>
+          <p class="a">Payment terms are part of your quote, including any ongoing amount for hosting and upkeep. Nothing recurring gets added without your sign-off.</p>
+        </details>
+        <details class="qa">
+          <summary>What if I want to stop? <span class="plus">+</span></summary>
+          <p class="a">Ongoing arrangements can be ended with written notice as described in your quote. You keep what you've paid for, and we stop billing for what we no longer provide.</p>
+        </details>
+      </div>
+    </section>
+  </div>
 """
 page("pricing.html",
      "Pricing | Element Digital",
@@ -927,7 +1029,7 @@ privacy_body = """
   <section class="legal">
     <div class="wrap prose">
       <h2>Who we are</h2>
-      <p>Element Digital LLC ("Element Digital", "we", "us") builds websites and chatbots for local businesses. This site is elementdigital.org. You can reach us at <a href="mailto:elementdigitalllc@gmail.com">elementdigitalllc@gmail.com</a>.</p>
+      <p>Element Digital LLC ("Element Digital", "we", "us") builds websites and chatbots for businesses. This site is elementdigital.org. You can reach us at <a href="mailto:elementdigitalllc@gmail.com">elementdigitalllc@gmail.com</a>.</p>
 
       <h2>What we collect</h2>
       <p>When you use the contact form, we collect what you type: your name, your business name, your email or phone number, and your message. That's it. We don't require accounts, we don't set our own cookies, and we don't run ad trackers.</p>
