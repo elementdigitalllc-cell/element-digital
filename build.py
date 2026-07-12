@@ -667,7 +667,7 @@ FORM_JS = """
       status.textContent = 'Sent. We\\'ll be in touch.';
       status.className = 'form-status ok';
     } catch {
-      status.textContent = 'Something went wrong. Email us directly: elementdigitalllc@gmail.com';
+      status.textContent = 'Something went wrong. Email us directly: hello@elementdigital.org';
       status.className = 'form-status err';
     } finally {
       btn.disabled = false;
@@ -1122,7 +1122,7 @@ contact_body = f"""
   <section class="contact">
     <div class="wrap inner">
       <div class="contact-side">
-        <p class="reveal in">Send a note and we'll get back to you. Prefer email? Write to <a href="mailto:elementdigitalllc@gmail.com">elementdigitalllc@gmail.com</a>. Prefer to talk? Leave your number and we'll call.</p>
+        <p class="reveal in">Send a note and we'll get back to you. Prefer email? Write to <a href="mailto:hello@elementdigital.org">hello@elementdigital.org</a>. Prefer to talk? Leave your number and we'll call.</p>
         <p class="reveal in d1">Not sure if your problem fits what we do? Send it anyway. If we can solve it, we'll tell you how. If we can't, we'll point you somewhere that can.</p>
       </div>
       <form id="contactForm" novalidate class="reveal in d1">
@@ -1165,7 +1165,7 @@ privacy_body = """
   <section class="legal">
     <div class="wrap prose">
       <h2>Who we are</h2>
-      <p>Element Digital LLC ("Element Digital", "we", "us") builds websites and chatbots for businesses. This site is elementdigital.org. You can reach us at <a href="mailto:elementdigitalllc@gmail.com">elementdigitalllc@gmail.com</a>.</p>
+      <p>Element Digital LLC ("Element Digital", "we", "us") builds websites and chatbots for businesses. This site is elementdigital.org. You can reach us at <a href="mailto:hello@elementdigital.org">hello@elementdigital.org</a>.</p>
 
       <h2>What we collect</h2>
       <p>When you use the contact form, we collect what you type: your name, your business name, your email or phone number, and your message. That's it. We don't require accounts, we don't set our own cookies, and we don't run ad trackers.</p>
@@ -1186,7 +1186,7 @@ privacy_body = """
       <p>We keep contact messages in our email for as long as we need them to serve you or as required by law. If you want your information deleted, email us and we'll remove it.</p>
 
       <h2>Your choices</h2>
-      <p>You can contact us by email instead of the form. You can ask us what we have about you, ask us to correct it, or ask us to delete it at any time by writing to <a href="mailto:elementdigitalllc@gmail.com">elementdigitalllc@gmail.com</a>.</p>
+      <p>You can contact us by email instead of the form. You can ask us what we have about you, ask us to correct it, or ask us to delete it at any time by writing to <a href="mailto:hello@elementdigital.org">hello@elementdigital.org</a>.</p>
 
       <h2>Children</h2>
       <p>This site is for business owners and is not directed to children under 13. We do not knowingly collect information from children.</p>
@@ -1195,7 +1195,7 @@ privacy_body = """
       <p>If we change this policy, we'll update this page and the date at the top. Meaningful changes won't apply retroactively to information we already have without telling you.</p>
 
       <h2>Contact</h2>
-      <p>Questions about this policy: <a href="mailto:elementdigitalllc@gmail.com">elementdigitalllc@gmail.com</a></p>
+      <p>Questions about this policy: <a href="mailto:hello@elementdigital.org">hello@elementdigital.org</a></p>
     </div>
   </section>
 """
@@ -1249,7 +1249,7 @@ terms_body = """
       <p>We may update these terms from time to time. The version on this page applies from its effective date forward; changes don't rewrite agreements already in progress.</p>
 
       <h2>Contact</h2>
-      <p>Questions about these terms: <a href="mailto:elementdigitalllc@gmail.com">elementdigitalllc@gmail.com</a></p>
+      <p>Questions about these terms: <a href="mailto:hello@elementdigital.org">hello@elementdigital.org</a></p>
     </div>
   </section>
 """
@@ -1286,7 +1286,7 @@ cookies_body = """
       <p>If we ever add tools that use cookies, we'll update this page and the date at the top before they go live.</p>
 
       <h2>Contact</h2>
-      <p>Questions about this policy: <a href="mailto:elementdigitalllc@gmail.com">elementdigitalllc@gmail.com</a></p>
+      <p>Questions about this policy: <a href="mailto:hello@elementdigital.org">hello@elementdigital.org</a></p>
     </div>
   </section>
 """
@@ -1322,7 +1322,7 @@ disclaimer_body = """
       <p>We work to keep this site accurate and online, but we make no warranty that it will always be current, complete, or uninterrupted.</p>
 
       <h2>Contact</h2>
-      <p>Questions about this disclaimer: <a href="mailto:elementdigitalllc@gmail.com">elementdigitalllc@gmail.com</a></p>
+      <p>Questions about this disclaimer: <a href="mailto:hello@elementdigital.org">hello@elementdigital.org</a></p>
     </div>
   </section>
 """
@@ -1358,7 +1358,7 @@ accessibility_body = """
       <p>Some decorative animations and illustrations are hidden from screen readers rather than described in detail, because they don't carry information the text doesn't already provide.</p>
 
       <h2>Feedback</h2>
-      <p>If any part of this site is hard for you to use, tell us and we'll fix it: <a href="mailto:elementdigitalllc@gmail.com">elementdigitalllc@gmail.com</a>. Accessibility is also something we build into every website we make for clients.</p>
+      <p>If any part of this site is hard for you to use, tell us and we'll fix it: <a href="mailto:hello@elementdigital.org">hello@elementdigital.org</a>. Accessibility is also something we build into every website we make for clients.</p>
     </div>
   </section>
 """
