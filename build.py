@@ -196,10 +196,10 @@ CSS = """
   .d-web .frame { width: min(300px, 94%); height: 220px; border: 1px solid var(--ink); background: #fff; display: flex; flex-direction: column; }
   .d-web .chrome { height: 26px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 5px; padding: 0 10px; flex: none; }
   .d-web .chrome i { width: 6px; height: 6px; background: #d4d2d8; display: block; }
-  .d-web .chrome-logo { height: 12px; width: auto; margin-left: 8px; }
+  .d-web .chrome-logo { height: 14px; width: auto; margin-left: 8px; }
   .d-web .chrome-label {
-    font-family: "IBM Plex Mono", monospace; font-size: 0.5625rem;
-    letter-spacing: 0.08em; text-transform: uppercase; color: #9a969e; margin-left: 6px;
+    font-family: "IBM Plex Mono", monospace; font-size: 0.625rem;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); margin-left: 6px;
   }
   .d-web .page { flex: 1; padding: 14px; position: relative; }
   .d-web .blk { position: absolute; transform-origin: left center; }
