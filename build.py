@@ -647,7 +647,7 @@ BASE_JS = """
         body: JSON.stringify({
           _subject: 'Chatbot conversation on elementdigital.org',
           page: location.pathname,
-          conversation: lines.join('\n\n')
+          conversation: lines.join(String.fromCharCode(10, 10))
         }),
         keepalive: true
       });
