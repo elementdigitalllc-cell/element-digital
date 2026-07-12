@@ -29,7 +29,7 @@ export async function onRequestPost({ request, env }) {
       role: m.role === "assistant" ? "assistant" : "user",
       content: String(m.content || "").slice(0, 600)
     }));
-    const result = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+    const result = await env.AI.run("@cf/meta/llama-4-scout-17b-16e-instruct", {
       messages: [{ role: "system", content: SYSTEM }, ...trimmed],
       max_tokens: 300
     });
