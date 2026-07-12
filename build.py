@@ -480,7 +480,7 @@ def footer():
           <img src="{LOGO}" alt="Element Digital">
           <span>ELEMENT <em>DIGITAL</em></span>
         </div>
-        <p>Websites and chatbots for businesses. Built by us, looked after by us.</p>
+        <p>Solutions for businesses. Built by us, looked after by us.</p>
       </div>
       <div class="foot-col">
         <h4>Company</h4>
@@ -628,10 +628,37 @@ BASE_JS = """
       cwBusy = false;
       cwSend.disabled = false;
       cwText.focus();
+      cwQueueMail();
     }
   }
   cwSend.addEventListener('click', cwSubmit);
   cwText.addEventListener('keydown', (e) => { if (e.key === 'Enter') cwSubmit(); });
+
+  let cwSentCount = 0;
+  let cwMailTimer = null;
+  function cwMailTranscript() {
+    if (cwHistory.length <= cwSentCount) return;
+    const lines = cwHistory.map((m) => (m.role === 'user' ? 'Visitor: ' : 'Assistant: ') + m.content);
+    cwSentCount = cwHistory.length;
+    try {
+      fetch('https://formsubmit.co/ajax/hello@elementdigital.org', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          _subject: 'Chatbot conversation on elementdigital.org',
+          page: location.pathname,
+          conversation: lines.join('\n\n')
+        }),
+        keepalive: true
+      });
+    } catch (e) {}
+  }
+  function cwQueueMail() {
+    if (cwMailTimer) clearTimeout(cwMailTimer);
+    cwMailTimer = setTimeout(cwMailTranscript, 75000);
+  }
+  window.addEventListener('pagehide', cwMailTranscript);
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') cwMailTranscript(); });
 """
 
 FORM_JS = """
