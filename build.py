@@ -196,9 +196,10 @@ CSS = """
   .d-web .frame { width: min(300px, 94%); height: 220px; border: 1px solid var(--ink); background: #fff; display: flex; flex-direction: column; }
   .d-web .chrome { height: 26px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 5px; padding: 0 10px; flex: none; }
   .d-web .chrome i { width: 6px; height: 6px; background: #d4d2d8; display: block; }
+  .d-web .chrome-logo { height: 12px; width: auto; margin-left: 8px; }
   .d-web .chrome-label {
     font-family: "IBM Plex Mono", monospace; font-size: 0.5625rem;
-    letter-spacing: 0.08em; text-transform: uppercase; color: #9a969e; margin-left: 8px;
+    letter-spacing: 0.08em; text-transform: uppercase; color: #9a969e; margin-left: 6px;
   }
   .d-web .page { flex: 1; padding: 14px; position: relative; }
   .d-web .blk { position: absolute; transform-origin: left center; }
@@ -322,9 +323,63 @@ CSS = """
   .legal ul { margin-top: 6px; padding-left: 20px; }
   .legal a { color: var(--ink); }
 
+  /* chat widget */
+  #chat-launch {
+    position: fixed; right: 24px; bottom: 24px; z-index: 40;
+    height: 48px; padding: 0 18px;
+    background: var(--ink); color: #fff; border: 1px solid var(--ink);
+    display: flex; align-items: center; gap: 10px;
+    font: inherit; font-size: 0.875rem; font-weight: 600;
+    cursor: pointer;
+  }
+  #chat-launch img { height: 18px; }
+  #chat-launch:hover { background: #333; }
+  #chat-panel {
+    position: fixed; right: 24px; bottom: 84px; z-index: 41;
+    width: 340px; max-width: calc(100vw - 32px); height: 460px; max-height: calc(100vh - 120px);
+    background: #fff; border: 1px solid var(--ink);
+    display: none; flex-direction: column;
+  }
+  #chat-panel.open { display: flex; }
+  .cw-head {
+    height: 44px; border-bottom: 1px solid var(--line); flex: none;
+    display: flex; align-items: center; gap: 8px; padding: 0 14px;
+  }
+  .cw-head img { height: 16px; }
+  .cw-head .mono { font-size: 0.6875rem; color: var(--ink); }
+  .cw-head .dot { width: 7px; height: 7px; background: #3fae5a; margin-left: auto; }
+  .cw-head button {
+    background: none; border: none; font-size: 1.1rem; line-height: 1;
+    color: var(--sub); cursor: pointer; padding: 4px; margin-left: 8px;
+  }
+  .cw-head button:hover { color: var(--ink); }
+  .cw-log { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .cw-msg { max-width: 85%; font-size: 0.8125rem; line-height: 1.5; padding: 9px 12px; white-space: pre-wrap; }
+  .cw-msg.u { align-self: flex-end; border: 1px solid var(--line); color: var(--ink); }
+  .cw-msg.b { align-self: flex-start; background: var(--ink); color: #fff; }
+  .cw-msg.b a { color: #fff; }
+  .cw-typing { align-self: flex-start; display: flex; gap: 4px; padding: 9px 12px; }
+  .cw-typing i { width: 5px; height: 5px; background: #b9b6bf; display: block; animation: tw 1s infinite; }
+  .cw-typing i:nth-child(2) { animation-delay: 0.15s; }
+  .cw-typing i:nth-child(3) { animation-delay: 0.3s; }
+  .cw-input { flex: none; border-top: 1px solid var(--line); display: flex; }
+  .cw-input input {
+    flex: 1; border: none; padding: 13px 14px; font: inherit; font-size: 0.875rem; color: var(--ink);
+  }
+  .cw-input input:focus { outline: none; }
+  .cw-input button {
+    flex: none; border: none; background: var(--ink); color: #fff;
+    font: inherit; font-size: 0.875rem; font-weight: 600; padding: 0 18px; cursor: pointer;
+  }
+  .cw-input button:disabled { opacity: 0.5; }
+  @media (max-width: 700px) {
+    #chat-launch { right: 16px; bottom: 16px; }
+    #chat-panel { right: 16px; bottom: 74px; }
+  }
+
   /* back to top */
   #btt {
-    position: fixed; right: 24px; bottom: 24px; z-index: 30;
+    position: fixed; right: 24px; bottom: 88px; z-index: 30;
     width: 44px; height: 44px;
     background: #fff; border: 1px solid var(--ink); color: var(--ink);
     font-size: 1.05rem; display: grid; place-items: center;
@@ -376,7 +431,7 @@ CSS = """
     .intro-c .intro-actions { flex-direction: column; gap: 24px; }
     .sol-grid { grid-template-columns: 1fr; }
     .foot-grid { grid-template-columns: 1fr; gap: 36px; padding: 48px 0; }
-    #btt { right: 16px; bottom: 16px; }
+    #btt { right: 16px; bottom: 78px; }
   }
 
 """
@@ -460,7 +515,24 @@ def footer():
     </div>
   </div>
 </footer>
-<a id="btt" href="#" aria-label="Back to top">&uarr;</a>"""
+<a id="btt" href="#" aria-label="Back to top">&uarr;</a>
+<button id="chat-launch" aria-label="Chat with Element Assistant">
+  <img src="{LOGO}" alt="">
+  <span>Chat with us</span>
+</button>
+<div id="chat-panel" role="dialog" aria-label="Element Assistant chat">
+  <div class="cw-head">
+    <img src="{LOGO}" alt="">
+    <span class="mono">Element Assistant</span>
+    <span class="dot"></span>
+    <button id="chat-close" aria-label="Close chat">&times;</button>
+  </div>
+  <div class="cw-log" id="chat-log"></div>
+  <div class="cw-input">
+    <input id="chat-text" type="text" placeholder="Ask about what we do..." maxlength="500">
+    <button id="chat-send">Send</button>
+  </div>
+</div>"""
 
 BASE_JS = """
   const io = new IntersectionObserver((entries) => {
@@ -494,6 +566,72 @@ BASE_JS = """
       document.querySelectorAll('.nav-links > div.open').forEach((o) => o.classList.remove('open'));
     }
   });
+
+  const cwPanel = document.getElementById('chat-panel');
+  const cwLog = document.getElementById('chat-log');
+  const cwText = document.getElementById('chat-text');
+  const cwSend = document.getElementById('chat-send');
+  const cwHistory = [];
+  let cwBusy = false;
+
+  function cwAdd(role, text, asHtml) {
+    const div = document.createElement('div');
+    div.className = 'cw-msg ' + (role === 'user' ? 'u' : 'b');
+    if (asHtml) { div.innerHTML = text; } else { div.textContent = text; }
+    cwLog.appendChild(div);
+    cwLog.scrollTop = cwLog.scrollHeight;
+    return div;
+  }
+
+  document.getElementById('chat-launch').addEventListener('click', () => {
+    cwPanel.classList.toggle('open');
+    if (cwPanel.classList.contains('open')) {
+      if (!cwLog.children.length) {
+        cwAdd('bot', "Hi, I'm Element Assistant. Ask me anything about what we build or how working with us goes.");
+      }
+      cwText.focus();
+    }
+  });
+  document.getElementById('chat-close').addEventListener('click', () => cwPanel.classList.remove('open'));
+
+  async function cwSubmit() {
+    const q = cwText.value.trim();
+    if (!q || cwBusy) return;
+    cwText.value = '';
+    cwAdd('user', q);
+    cwHistory.push({ role: 'user', content: q });
+    cwBusy = true;
+    cwSend.disabled = true;
+    const typing = document.createElement('div');
+    typing.className = 'cw-typing';
+    typing.innerHTML = '<i></i><i></i><i></i>';
+    cwLog.appendChild(typing);
+    cwLog.scrollTop = cwLog.scrollHeight;
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: cwHistory })
+      });
+      const data = await res.json();
+      typing.remove();
+      if (res.ok && data.reply) {
+        cwAdd('bot', data.reply);
+        cwHistory.push({ role: 'assistant', content: data.reply });
+      } else {
+        throw new Error('bad response');
+      }
+    } catch (err) {
+      typing.remove();
+      cwAdd('bot', "I am having trouble connecting right now. You can reach us any time through the <a href='contact.html'>contact page</a>.", true);
+    } finally {
+      cwBusy = false;
+      cwSend.disabled = false;
+      cwText.focus();
+    }
+  }
+  cwSend.addEventListener('click', cwSubmit);
+  cwText.addEventListener('keydown', (e) => { if (e.key === 'Enter') cwSubmit(); });
 """
 
 FORM_JS = """
@@ -631,7 +769,7 @@ def demo_web(reveal="reveal d2"):
     return f"""<div class="demo d-web {reveal}" aria-hidden="true">
   <div class="stage">
     <div class="frame">
-      <div class="chrome"><i></i><i></i><i></i><span class="chrome-label">element sites</span></div>
+      <div class="chrome"><i></i><i></i><i></i><img class="chrome-logo" src="{LOGO}" alt=""><span class="chrome-label">element sites</span></div>
       <div class="page">
         <div class="blk b-nav"></div><div class="blk b-h1"></div><div class="blk b-t1"></div>
         <div class="blk b-t2"></div><div class="blk b-cta"></div><div class="blk b-img"></div>
