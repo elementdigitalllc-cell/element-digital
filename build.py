@@ -651,7 +651,7 @@ FORM_JS = """
     status.textContent = 'Sending\\u2026';
     status.className = 'form-status';
     try {
-      const res = await fetch('https://formsubmit.co/ajax/elementdigitalllc@gmail.com', {
+      const res = await fetch('https://formsubmit.co/ajax/hello@elementdigital.org', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
