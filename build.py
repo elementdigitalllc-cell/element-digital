@@ -1150,7 +1150,8 @@ contact_body = f"""
     <div class="wrap inner">
       <div class="contact-side">
         <p class="reveal in">Send a note and we'll get back to you. Prefer email? Write to <a href="mailto:hello@elementdigital.org">hello@elementdigital.org</a>. Prefer to talk? Leave your number and we'll call.</p>
-        <p class="reveal in d1">Not sure if your problem fits what we do? Send it anyway. If we can solve it, we'll tell you how. If we can't, we'll point you somewhere that can.</p>
+        <p class="reveal in d1">Already work with us? Write to <a href="mailto:support@elementdigital.org">support@elementdigital.org</a> and we'll take care of it.</p>
+        <p class="reveal in d2">Not sure if your problem fits what we do? Send it anyway. If we can solve it, we'll tell you how. If we can't, we'll point you somewhere that can.</p>
       </div>
       <form id="contactForm" novalidate class="reveal in d1">
         <div class="field">
@@ -1461,5 +1462,14 @@ page("faq.html",
      "FAQ | Element Digital",
      "Straight answers about how Element Digital works, quotes, and what's included.",
      faq_body)
+
+open("_headers", "w").write(
+    "/*\n"
+    "  Strict-Transport-Security: max-age=31536000; includeSubDomains\n"
+    "  X-Frame-Options: DENY\n"
+    "  X-Content-Type-Options: nosniff\n"
+    "  Referrer-Policy: strict-origin-when-cross-origin\n"
+    "  Permissions-Policy: camera=(), microphone=(), geolocation=()\n"
+)
 
 print("done")
